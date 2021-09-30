@@ -1,0 +1,77 @@
+.btn {
+    position: relative;
+    display: inline-block;
+    background-color: $white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: $btn-line-height;
+    font-weight: $btn-font-weight;
+    border: $btn-border-width solid transparent;
+    color: $body-color;
+    box-shadow: $btn-box-shadow;
+    cursor: pointer;
+    white-space: nowrap;
+    @include button-size($btn-padding-x, $btn-padding-y, $btn-border-radius, $btn-font-size);
+    &.disabled,
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: $btn-disabled-opacity;
+        box-shadow: none;
+        > * {
+            pointer-events: none;
+        }
+    }
+}
+
+.btn-lg {
+    @include button-size($btn-padding-x-lg, $btn-padding-y-lg, $btn-border-radius-lg, $btn-font-size-lg);
+}
+
+.btn-sm {
+    @include button-size($btn-padding-x-sm, $btn-padding-y-sm, $btn-border-radius-sm, $btn-font-size-sm);
+}
+
+.btn-primary {
+    @include button-style($primary, $primary, $white);
+}
+
+.btn-danger {
+    @include button-style($danger, $danger, $white);
+}
+
+.btn-warning {
+    @include button-style($warning, $warning, $white);
+}
+
+.btn-success {
+    @include button-style($success, $success, $white);
+}
+
+.btn-default {
+    @include button-style($white, $gray-600, $black, $white, $primary, $primary);
+}
+
+.btn-link {
+    font-weight: $font-weight-normal;
+    color: $btn-link-color;
+    text-decoration: $link-decoration;
+    box-shadow: none;
+
+    &:hover {
+        color: $btn-link-hover-color;
+        box-shadow: none;
+    }
+
+    &:focus,
+    &.focus {
+        color: $btn-link-hover-color;
+        box-shadow: none;
+    }
+
+    &:disabled,
+    &.disabled {
+        color: $btn-link-disabled-color;
+        text-decoration: none;
+        box-shadow: none;
+    }
+}
