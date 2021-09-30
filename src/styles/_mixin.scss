@@ -37,3 +37,8 @@
         color: $color;
     }
 }
+
+@mixin alert-style($background, $color) {
+    background-color: $background;
+    color: $color;
+}

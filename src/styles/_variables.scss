@@ -268,3 +268,25 @@ $progress-bg:                       $gray-200 !default;
 $progress-border-radius:            $border-radius !default;
 $progress-bar-color:                $white !default;
 $progress-bar-transition:           width .6s ease !default;
+
+
+// alert
+
+$alert-padding-x:                   1.25rem !default;
+$alert-padding-y:                   .5rem !default;
+$alert-color:                       $white !default;
+$alert-border-radius:               $border-radius-lg !default;
+$alert-base-width:                  25rem !default;
+
+$alert-title-font-size:             $font-size-lg !default;
+$alert-title-font-weight:           $font-weight-bold !default;
+$alert-title-line-height:           $line-height-sm !default;
+
+$alert-content-font-size:           $font-size-base !default;
+$alert-content-font-weight:         $font-weight-base !default;
+$alert-content-line-height:         $line-height-sm !default;
+
+$alert-icon-top:                    $alert-padding-y + $alert-title-line-height / 3 !default;
+$alert-icon-right:                  $alert-padding-x !default;
+$alert-icon-width:                  10px !default;
+$alert-icon-height:                 10px !default;    
