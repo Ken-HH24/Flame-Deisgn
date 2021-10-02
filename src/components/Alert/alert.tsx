@@ -8,7 +8,7 @@ export enum AlertType {
     Danger = 'danger'
 }
 
-interface BaseAlertProps{
+export interface BaseAlertProps{
     className?: string;
     type?: AlertType;
     title?: string;
