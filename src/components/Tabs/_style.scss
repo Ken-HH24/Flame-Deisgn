@@ -1,0 +1,43 @@
+.tabs {
+    .tab-item-navbar {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .tab-item-label {
+            box-sizing: border-box;
+            padding: 0.75rem 1.5rem 0.5rem 1.5rem;
+            border-bottom: 2px solid $gray-300;
+            cursor: pointer;
+
+            &.active,
+            &:hover {
+                border-bottom: 2px solid $primary;
+                color: $primary;
+            }
+
+            &.disabled {
+                color: $gray-300;
+                pointer-events: none;
+            }
+        }
+
+        &.card {
+            .tab-item-label.active {
+                border-bottom: none;
+                border-top: 2px solid $gray-300;
+                border-left: 2px solid $gray-300;
+                border-right: 2px solid $gray-300;
+            }
+
+            .tab-item-label:hover {
+                border-bottom: inherit;
+            }
+        }
+    }
+
+    .tab-item-content {
+        padding: 0.5rem 0;
+    }
+}

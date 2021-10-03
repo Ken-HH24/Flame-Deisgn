@@ -3,6 +3,8 @@ import Alert, { AlertType } from './components/Alert/alert';
 import Menu from './components/Menu/menu';
 import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
+import Tabs from './components/Tabs/tabs';
+import TabItem from './components/Tabs/tabItem';
 
 function getAlert() {
   return (
@@ -34,25 +36,25 @@ function getMenu() {
   return (
     <div id='menu-wrapper'>
       <Menu mode='vertical' onSelect={(index)=>{alert(index)}}>
-        <MenuItem>
-          Hello
-        </MenuItem>
-        <MenuItem disabled>
-          World
-        </MenuItem>
+        <MenuItem>Hello</MenuItem>
+        <MenuItem disabled>World</MenuItem>
         <SubMenu title='test'>
-          <MenuItem>
-            testa
-          </MenuItem>
-          <MenuItem>
-            testbcsdf
-          </MenuItem>
+          <MenuItem>testa</MenuItem>
+          <MenuItem>testbcsdf</MenuItem>
         </SubMenu>
-        <MenuItem index='5'>
-          javascript
-        </MenuItem>
+        <MenuItem index='5'>javascript</MenuItem>
       </Menu>
     </div>
+  )
+}
+
+const getTabs = () => {
+  return (
+    <Tabs>
+      <TabItem label='111'>Hello World</TabItem>
+      <TabItem label='222' disabled>See you</TabItem>
+      <TabItem label='333'>Bye Bye</TabItem>
+    </Tabs>
   )
 }
 
@@ -61,6 +63,7 @@ function App() {
     <div className="App">
       {getAlert()}
       {getMenu()}
+      {getTabs()}
     </div>
   );
 }
