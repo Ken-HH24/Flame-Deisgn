@@ -20,11 +20,6 @@
 
     .closed-icon {
         position: absolute;
-        width: $alert-icon-width;
-        height: $alert-icon-height;
-        background-image: url("../../source/icons/close.svg");
-        background-size: $alert-icon-width $alert-icon-height;
-        background-repeat: no-repeat;
         top: $alert-icon-top;
         right: $alert-icon-right;
         cursor: pointer;

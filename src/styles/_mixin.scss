@@ -42,3 +42,29 @@
     background-color: $background;
     color: $color;
 }
+
+@mixin zoom-animation($name, $transform-origin: center, $scale-start: scale(0), $scale-end: scale(1)) {
+    .zoom-in-#{$name}-enter {
+        opacity: 0;
+        transform: $scale-start;
+    }
+
+    .zoom-in-#{$name}-enter-active {
+        opacity: 1;
+        transform:$scale-end;
+        transition: 0.3s ease-in-out;
+        transform-origin: $transform-origin;
+    }
+
+    .zoom-in-#{$name}-exit {
+        opacity: 1;
+        transform: $scale-end;
+    }
+
+    .zoom-in-#{$name}-exit-active {
+        opacity: 0;
+        transform: $scale-start;
+        transition: 0.3s ease-in-out;
+        transform-origin: $transform-origin;
+    }
+}

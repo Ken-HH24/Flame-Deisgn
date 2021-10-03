@@ -2,6 +2,9 @@ import React, { useContext, useState } from 'react';
 import { MenuItemProps } from './menuItem';
 import { MenuContext } from './menu';
 import classNames from '../../utils/classNames';
+import Icon from '../Icon/icon';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import Transition from '../Transition/transition';
 
 export interface SubMenuProps {
     title: string;
@@ -34,9 +37,15 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         })
         
         return (
-            <ul className={submenuClasses}>
-                {submenuChildren}
-            </ul>
+            <Transition
+                in={menuOpen}
+                timeout={300}
+                animation='zoom-in-right'
+            >
+                <ul className={submenuClasses}>
+                    {submenuChildren}
+                </ul>
+            </Transition>
         )
     }
 
@@ -45,7 +54,9 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
         'submenu',
         className,
         {
-            'active': menuContext.activeIndex === index
+            'active': menuContext.activeIndex === index,
+            'isVertical': menuContext.mode === 'vertical',
+            'isOpen': menuOpen
         }
     );
 
@@ -74,11 +85,9 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
 
     return (
         <li className={classes} {...hoverEvent}>
-            <div
-                className='submenu-title'
-                {...clickEvent}
-            >
+            <div className='submenu-title' {...clickEvent}>
                 {title}
+                <Icon theme='dark' icon={faAngleDown}/>
             </div>
             {renderSubMenu()}
         </li>

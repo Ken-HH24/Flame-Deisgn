@@ -35,7 +35,7 @@ function getAlert() {
 function getMenu() {
   return (
     <div id='menu-wrapper'>
-      <Menu mode='vertical' onSelect={(index)=>{alert(index)}}>
+      <Menu>
         <MenuItem>Hello</MenuItem>
         <MenuItem disabled>World</MenuItem>
         <SubMenu title='test'>

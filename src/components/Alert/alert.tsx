@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import classNames from '../../utils/classNames';
+import Icon from '../Icon/icon';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import Transition from '../Transition/transition';
 
 export enum AlertType {
     Default = 'default',
@@ -38,17 +41,28 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
     return (
         <>
             {
-                isShow &&
-                (
-                    <div
-                        className={classes}
-                        {...restProps}
-                    >
-                        {title && <h4 className='alert-title'>{title}</h4>}
-                        {closeable && <i className='closed-icon' onClick={()=>{setIsShow(false)}}></i>}
-                        <span className='alert-content'>{content}</span>
-                    </div>
-                )
+                <Transition
+                in={isShow}
+                timeout={300}
+                animation='zoom-in-right'
+            >
+                <div
+                    className={classes}
+                    {...restProps}
+                >
+                    {title && <h4 className='alert-title'>{title}</h4>}
+                    {
+                        closeable &&
+                        <Icon
+                            className='closed-icon'
+                            size='sm'
+                            icon={ faTimes }
+                            onClick={ () => { setIsShow(false) } }
+                        ></Icon>
+                    }
+                    <span className='alert-content'>{content}</span>
+                </div>
+            </Transition>
             }
         </>
     );
