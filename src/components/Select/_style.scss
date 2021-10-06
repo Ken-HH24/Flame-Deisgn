@@ -1,0 +1,106 @@
+.select-wrapper {
+    position: relative;
+    width: 100%;
+
+    .select-input-wrapper {
+        width: 100%;
+        position: relative;
+
+        .select-input {
+            width: 100%;
+            cursor: default;
+            outline: 0;
+            border-radius: 0.25rem;
+            padding: $input-padding-y $input-padding-x;
+            padding-right: 35px;
+            border: $input-border-width solid $input-border-color;
+            color: $input-plaintext-color;
+
+            &:focus {
+                outline: 0;
+                border-color: $primary;
+            }
+        }
+
+        .select-input-icon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #8e959b;
+            cursor: pointer;
+            transition: .3s ease-in-out;
+            
+            &.panelShow {
+                transform: rotate(180deg);
+            }
+        }
+
+        .select-option-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0.2rem;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            cursor: pointer;
+
+            .select-option-item {
+                margin: 0.1rem 0.2rem;
+                padding: 0 0.1rem;
+                border: solid 1px darken($primary, 0.5);
+                background: #e9f4ff;
+                color: $primary;
+                border-radius: 0.2rem;
+
+                .select-option-value {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .select-items-wrapper {
+        position: absolute;
+        z-index: 1;
+        top: 110%;
+        width: 100%;
+        border: solid 1px $gray-300;
+        border-radius: 0.25rem;
+        padding: 0;
+        box-shadow: $box-shadow;
+
+        .select-item {
+            cursor: pointer;
+            line-height: 2.25rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-weight: $font-weight-bolder;
+
+            &.chosen,
+            &:hover {
+                background: #E9F4FF;
+                color: $primary;
+            }
+
+            &.disabled {
+                pointer-events: none;
+                color: $gray-300;
+            }
+
+            .select-item-icon-wrapper {
+                position: absolute;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                width: 35px;
+                top: 0;
+                right: 0;
+            }
+        }
+    }
+}

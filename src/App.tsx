@@ -5,9 +5,10 @@ import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
 import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
-import Input from './components/Input/input';
 import AutoComplete, { DataSourceType } from './components/Input/autoComplete';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import Select from './components/Select/select';
+import Input from './components/Input/input';
+import SelectItem from './components/Select/selectItem';
 
 function getAlert() {
   return (
@@ -61,22 +62,6 @@ const getTabs = () => {
   )
 }
 
-const getInput = () => {
-  return (
-    <div>
-      <Input
-        prepend='https://'
-        append='.com'
-        icon={faCoffee}
-        disabled
-      ></Input>
-      <Input size='sm' />
-      <Input />
-      <Input size='lg' />
-    </div>
-  )
-}
-
 const data = [
   { id: '1', value: 'abcdefg' },
   { id: '2', value: 'React.js' },
@@ -102,22 +87,38 @@ function renderOption(item: DataSourceType) {
   )
 }
 
+const getInput = () => {
+  return (
+    <AutoComplete
+      fetchData={handleFetchData}
+      renderOption={renderOption}
+      onSelect={(item) => { console.log(item) }}
+      style={{
+        width: '500px',
+        margin: '0 auto'
+      }}
+    ></AutoComplete>
+  )
+}
+
 function App() {
   return (
     <div className="App">
       {getAlert()}
       {getMenu()}
       {getTabs()}
-      {/* {getInput()} */}
-      <AutoComplete
-        fetchData={handleFetchData}
-        renderOption={renderOption}
-        onSelect={(item) => { console.log(item) }}
+      {getInput()}
+      <Select
         style={{
+          marginTop: '100px',
           width: '500px',
           margin: '0 auto'
         }}
-      ></AutoComplete>
+      >
+        <SelectItem value='111'></SelectItem>
+        <SelectItem value='222' disabled></SelectItem>
+        <SelectItem value='333'></SelectItem>
+      </Select>
     </div>
   );
 }

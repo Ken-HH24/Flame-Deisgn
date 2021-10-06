@@ -110,6 +110,7 @@
     .auto-complete-items-wrapper{
         padding: 0;
         position: absolute;
+        z-index: 1;
         top: 110%;
         width: 100%;
         border: solid 1px $gray-300;
@@ -133,6 +134,7 @@
 
     .auto-complete-loading-wrapper{
         position: absolute;
+        z-index: 1;
         display: flex;
         justify-content: center;
         align-items: center;

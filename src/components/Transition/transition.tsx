@@ -29,6 +29,7 @@ const Transition: React.FC<TransitionProps> = (props) => {
 }
 
 Transition.defaultProps = {
+    animation: 'zoom-in-top',
     unmountOnExit: true,
     appear: true
 }
