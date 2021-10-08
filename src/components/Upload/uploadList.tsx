@@ -4,7 +4,7 @@ import Icon, { ThemeProps } from '../Icon/icon';
 import { faFileAlt, faSpinner, faCheckCircle, faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Progress from '../Progress/progress';
 
-interface UploadListProps {
+export interface UploadListProps {
     uploadFileList: UploadFile[];
     onRemove: (_file: UploadFile) => void;
 }
