@@ -1,0 +1,78 @@
+.upload-wrapper {
+    display: inline-block;
+    width: 100%;
+
+    .upload-input {
+        display: none;
+    }
+}
+
+.upload-list-wrapper {
+    list-style: none;
+    padding: 0;
+    min-width: 100%;
+
+    .upload-list-item {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.25rem 0.5rem 0;
+
+        .upload-list-item-file {
+            margin-right: 0.5rem;
+        }
+
+        .upload-list-item-name {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-right: auto;
+        }
+
+        .upload-list-item-status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 35px;
+        }
+
+        .upload-list-item-close {
+            display: none;
+        }
+
+        &:hover {
+            .upload-list-item-status {
+                display: none;
+            }
+
+            .upload-list-item-close {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                width: 35px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.upload-dragger {
+    background: $gray-100;
+    border: 1px dash $gray-300;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 20px;
+    width: 360px;
+    height: 180px;
+    text-align: center;
+    &:hover {
+        border: 1px dashed $primary;
+    }
+    &.is-dragover{
+        border: 2px dashed $primary;
+        background: rgba($primary, .2);
+    }
+}

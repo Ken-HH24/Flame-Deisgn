@@ -1,8 +1,7 @@
 import React, { createContext, InputHTMLAttributes, useState, useRef } from 'react';
 import Icon from '../Icon/icon';
 import Transition from '../Transition/transition';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { SelectItemProps } from './selectItem';
 import useClickOutside from '../../hooks/useClickOutside';
 
@@ -38,7 +37,7 @@ const Select: React.FC<SelectProps> = (props) => {
     const [chosenIndex, setChosenIndex] = useState<number[]>([]);
     const inputValue = useRef('');
     const componentRef = useRef<HTMLDivElement>(null);
-    useClickOutside(componentRef, () => { setPanelShow(false) })
+    useClickOutside(componentRef, () => { handlePanelShow(false) })
 
     const handleItemClick = (index: number, value: string) => {
         const chosenIndexArr = [...chosenIndex];
@@ -53,15 +52,17 @@ const Select: React.FC<SelectProps> = (props) => {
         }
 
         if (mode === 'single') {
-            setPanelShow(false);
+            handlePanelShow(false);
         }
     }
 
+    const handlePanelShow = (isVisible: boolean) => {
+        onVisibleChange && onVisibleChange(isVisible);
+        setPanelShow(isVisible);
+    }
+
     const handleInputClick = () => {
-        if (onVisibleChange) {
-            onVisibleChange(!panelShow);
-        }
-        setPanelShow(!panelShow);
+        handlePanelShow(!panelShow);
     }
 
     const handleOptionClick = (index: number) => {
@@ -101,7 +102,10 @@ const Select: React.FC<SelectProps> = (props) => {
                 return (
                     <div
                         className='select-option-item'
-                        onClick={() => { handleOptionClick(index) }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleOptionClick(index);
+                        }}
                     >
                         <span className='select-option-value'>{value}</span>
                         <Icon icon={faTimes} theme='primary'></Icon>

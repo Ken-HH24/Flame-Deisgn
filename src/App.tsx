@@ -7,8 +7,9 @@ import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
 import AutoComplete, { DataSourceType } from './components/Input/autoComplete';
 import Select from './components/Select/select';
-import Input from './components/Input/input';
+// import Input from './components/Input/input';
 import SelectItem from './components/Select/selectItem';
+import Upload from './components/Upload/upload';
 
 function getAlert() {
   return (
@@ -39,7 +40,7 @@ function getAlert() {
 function getMenu() {
   return (
     <div id='menu-wrapper'>
-      <Menu>
+      <Menu mode='vertical' style={{width: '200px'}}>
         <MenuItem>Hello</MenuItem>
         <MenuItem disabled>World</MenuItem>
         <SubMenu title='test'>
@@ -101,14 +102,9 @@ const getInput = () => {
   )
 }
 
-function App() {
+function getSelect() {
   return (
-    <div className="App">
-      {getAlert()}
-      {getMenu()}
-      {getTabs()}
-      {getInput()}
-      <Select
+    <Select
         style={{
           marginTop: '100px',
           width: '500px',
@@ -118,7 +114,30 @@ function App() {
         <SelectItem value='111'></SelectItem>
         <SelectItem value='222' disabled></SelectItem>
         <SelectItem value='333'></SelectItem>
-      </Select>
+    </Select>
+  )
+}
+
+function getUpload() {
+  return (
+    <Upload
+      action='https://jsonplaceholder.typicode.com/posts'
+      // action='http://localhost:8000/upload'
+      multiple
+      drag
+    >upload file</Upload>
+  )
+}
+
+function App() {
+  return (
+    <div className="App">
+      {getAlert()}
+      {getMenu()}
+      {getTabs()}
+      {getInput()}
+      {getSelect()}
+      {getUpload()}      
     </div>
   );
 }
