@@ -63,6 +63,8 @@ export var Upload = function (props) {
             onUploadProgress: function (e) {
                 var percentage = Math.round((e.loaded * 100) / e.total) || 0;
                 if (percentage < 100) {
+                    _file.status = 'uploading';
+                    _file.percentage = percentage;
                     updateUploadFileList(_file, { status: 'uploading', percentage: percentage });
                     if (onProgress) {
                         onProgress(percentage, _file);
@@ -71,11 +73,15 @@ export var Upload = function (props) {
             }
         }).then(function (resp) {
             console.log(resp);
+            _file.status = 'success';
+            _file.response = resp.data;
             updateUploadFileList(_file, { status: 'success', percentage: 100 });
             onSuccess && onSuccess(resp.data, _file);
             onChange && onChange(_file);
         }).catch(function (err) {
             console.error(err);
+            _file.status = 'error';
+            _file.error = err;
             updateUploadFileList(_file, { status: 'error' });
             onError && onError(err, _file);
             onChange && onChange(_file);

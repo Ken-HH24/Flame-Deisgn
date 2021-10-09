@@ -113,8 +113,8 @@ var AutoComplete = function (props) {
                 break;
         }
     };
-    return (React.createElement("div", __assign({ className: 'auto-complete-wrapper', ref: componentRef }, restProps),
-        React.createElement(Input, { value: inputValue, onChange: handleInputChange, onKeyDown: handleKeyDown }),
+    return (React.createElement("div", { className: 'auto-complete-wrapper', ref: componentRef },
+        React.createElement(Input, __assign({ value: inputValue, onChange: handleInputChange, onKeyDown: handleKeyDown }, restProps)),
         renderSuggestions()));
 };
 export default AutoComplete;
