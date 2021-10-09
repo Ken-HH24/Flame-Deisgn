@@ -60,7 +60,7 @@ let wrapper: RenderResult, menuElement: HTMLElement, activeElement: HTMLElement,
 describe('test Menu and MenuItem Component', () => {
     beforeEach(() => {
         wrapper = render(generateMenu(testMenuProps));
-        wrapper.container.appendChild(createStyleFile());
+        // wrapper.container.appendChild(createStyleFile());
         menuElement = wrapper.container.querySelector('ul')!;
         activeElement = wrapper.getByText('active');
         disabledElement = wrapper.getByText('disabled');
@@ -94,40 +94,40 @@ describe('test Menu and MenuItem Component', () => {
     });
 
     it('should show the submenu when hover on the submenu-item', async () => {
-        const drop1Element = wrapper.queryByText('drop1');
-        expect(drop1Element).not.toBeVisible();
-        
-        const submenuElement = wrapper.getByText('submenu');
-        fireEvent.mouseEnter(submenuElement);
+        const { queryByText, getByText } = wrapper;
+        expect(queryByText('drop1')).not.toBeInTheDocument();
+
+        fireEvent.mouseEnter(getByText('submenu'));
         await waitFor(() => {
-            expect(drop1Element).toBeVisible();
+            expect(queryByText('drop1')).toBeVisible();
         });
         
-        fireEvent.click(drop1Element!);
+        fireEvent.click(queryByText('drop1')!);
         expect(testMenuProps.onSelect).toBeCalledWith('3-0');
 
-        fireEvent.mouseLeave(submenuElement);
+        fireEvent.mouseLeave(getByText('submenu'));
         await waitFor(() => {
-            expect(drop1Element).not.toBeVisible();
+            expect(queryByText('drop1')).not.toBeInTheDocument();
         })
     });
 
-    it('should show the submenu when click the submenu-item in the vertical mode', () => {
+    it('should show the submenu when click the submenu-item in the vertical mode', async () => {
         cleanup();
         const wrapper = render(generateMenu(verticalMenuProps));
-        wrapper.container.appendChild(createStyleFile());
+        const { queryByText, getByText } = wrapper;
+        // wrapper.container.appendChild(createStyleFile());
 
-        const drop1Element = wrapper.queryByText('drop1');
-        expect(drop1Element).not.toBeVisible();
+        expect(queryByText('drop1')).not.toBeInTheDocument();
 
-        const submenuElement = wrapper.getByText('submenu');
-        fireEvent.click(submenuElement);
-        expect(drop1Element).toBeVisible();
+        fireEvent.click(getByText('submenu'));
+        expect(queryByText('drop1')).toBeVisible();
 
-        fireEvent.click(drop1Element!);
+        fireEvent.click(queryByText('drop1')!);
         expect(verticalMenuProps.onSelect).toBeCalledWith('3-0');
 
-        fireEvent.click(submenuElement);
-        expect(drop1Element).not.toBeVisible();
+        fireEvent.click(getByText('submenu'));
+        await waitFor(() => {
+            expect(queryByText('drop1')).not.toBeInTheDocument();
+        })
     })
 })

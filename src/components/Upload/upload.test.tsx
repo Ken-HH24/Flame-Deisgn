@@ -5,12 +5,6 @@ import Upload,{ UploadProps } from './upload';
 import { IconProps } from '../Icon/icon';
 import axios from 'axios';
 
-jest.mock('../Icon/icon', () => {
-    return ({ icon }: IconProps) => {
-        return <span>{icon}</span>
-    }
-})
-
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
@@ -18,6 +12,7 @@ const testProps: UploadProps = {
     action: 'fakeurl.com',
     onSuccess: jest.fn(),
     onChange: jest.fn(),
+    drag: true
 }
 
 let wrapper: RenderResult;
@@ -29,22 +24,27 @@ const testFile = new File(['xyz'], 'test.png', { type: 'image/png' });
 describe('test upload component', () => {
     beforeEach(() => {
         wrapper = render(<Upload {...testProps}>Click to Upload</Upload>);
-        fileInput = wrapper.container.querySelector('.upload-input')!;
+        fileInput = wrapper.container.querySelector('.upload-input') as HTMLInputElement;
         uploadArea = wrapper.getByText('Click to Upload');
     })
 
     it('upload process should work fine', async () => {
-        mockedAxios.post.mockImplementation(() => {
-            return Promise.resolve({ 'data': 'success' });
-        })
+        // mockedAxios.post.mockImplementation(() => {
+        //     return Promise.resolve({ 'data': 'success' });
+        // })
+        mockedAxios.post.mockResolvedValue({ 'data': 'success' });
         const { queryByText } = wrapper;
         expect(fileInput).not.toBeVisible();
         expect(uploadArea).toBeVisible();
-        fireEvent.change(fileInput, { target: { FileList: [testFile] } });
+        fireEvent.change(fileInput, { target: { files: [testFile] } });
         // expect(queryByText('spinner')).toBeInTheDocument();
         await waitFor(() => {
             expect(queryByText('test.png')).toBeInTheDocument();
         })
-        expect(testProps.onSuccess).toHaveBeenCalledWith('success', testFile)
+        expect(testProps.onSuccess).toHaveBeenCalledWith('success', expect.objectContaining({
+            raw: testFile,
+            status: "success",
+            name: "test.png"
+        }))
     })
 })

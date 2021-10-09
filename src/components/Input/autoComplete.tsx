@@ -133,12 +133,13 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
         <div
             className='auto-complete-wrapper'
             ref={componentRef}
-            {...restProps}
+            // {...restProps}
         >
             <Input
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
+                {...restProps}
             ></Input>
             {renderSuggestions()}
         </div>

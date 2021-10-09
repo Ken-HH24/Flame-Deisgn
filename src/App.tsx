@@ -21,17 +21,17 @@ function getAlert() {
       />
       <Alert
         content='bbbbb'
-        type={AlertType.Danger}
+        type='danger'
       />
 
       <Alert
         title='aaa'
         content='bbbbb'
-        type={AlertType.Warning}
+        type='warning'
       />
       <Alert
         content='bbbbb'
-        type={AlertType.Success}
+        type='success'
       />
     </div>
   )

@@ -1,7 +1,6 @@
 # Flame-Design
 尝试使用 **React + Typescript** 搭建组件库
 
----
 ## Example
 ### Tabs
 ```tsx
@@ -17,7 +16,6 @@
 | `label: string`             | 控制标题文本     |
 | `disabled?: boolean`        | 是否禁用         |
 | `onSelect?: selectCallback` | 被选中后回调函数 |
----
 
 ## 模块打包
 `npm run build`

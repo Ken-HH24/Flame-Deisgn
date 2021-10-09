@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import Alert, { AlertType, BaseAlertProps } from './alert';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import Alert, { BaseAlertProps } from './alert';
 
 const clickProps: BaseAlertProps = {
     title: 'title',
@@ -8,17 +8,19 @@ const clickProps: BaseAlertProps = {
 }
 
 const testProps: BaseAlertProps = {
-    type: AlertType.Success,
+    type: 'success',
     ...clickProps
 }
 
 describe('test Alert Component', () => {
-    it('should the component disappear when the closed button is clicked', () => {
+    it('should the component disappear when the closed button is clicked', async () => {
         const wrapper = render(<Alert {...clickProps}></Alert>);
-        const container = wrapper.container.querySelector('div');
-        expect(container).toBeInTheDocument();
-        fireEvent.click(wrapper.container.querySelector('i') as HTMLElement);
-        expect(container).not.toBeInTheDocument();
+        const alertElement = wrapper.container.querySelector('.alert');
+        expect(alertElement).toBeInTheDocument();
+        fireEvent.click(wrapper.container.querySelector('.closed-icon') as HTMLElement);
+        await waitFor(() => {
+            expect(alertElement).not.toBeInTheDocument();
+        })
     });
 
     it('should the component render in the right way', () => {

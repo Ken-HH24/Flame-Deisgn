@@ -4,12 +4,7 @@ import Icon from '../Icon/icon';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Transition from '../Transition/transition';
 
-export enum AlertType {
-    Default = 'default',
-    Success = 'success',
-    Warning = 'warning',
-    Danger = 'danger'
-}
+export type AlertType = 'default' | 'success' | 'warning' | 'danger';
 
 export interface BaseAlertProps{
     className?: string;
@@ -69,7 +64,7 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
 }
 
 Alert.defaultProps = {
-    type: AlertType.Default,
+    type: 'default',
     closeable: true
 }
 
