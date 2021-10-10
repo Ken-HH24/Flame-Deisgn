@@ -1,8 +1,5 @@
 import React from 'react';
 import Alert from './components/Alert/alert';
-import Menu from './components/Menu/menu';
-import MenuItem from './components/Menu/menuItem';
-import SubMenu from './components/Menu/subMenu';
 import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
 import AutoComplete from './components/Input/autoComplete';
@@ -10,22 +7,18 @@ import Select from './components/Select/select';
 // import Input from './components/Input/input';
 import SelectItem from './components/Select/selectItem';
 import Upload from './components/Upload/upload';
+import Menu from './components/Menu/menu';
+import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
 function getAlert() {
     return (React.createElement("div", { id: 'alert-wrapper' },
         React.createElement(Alert, { title: 'aaa', content: 'bbbbb', closeable: false }),
         React.createElement(Alert, { content: 'bbbbb', type: 'danger' }),
         React.createElement(Alert, { title: 'aaa', content: 'bbbbb', type: 'warning' }),
         React.createElement(Alert, { content: 'bbbbb', type: 'success' })));
-}
-function getMenu() {
-    return (React.createElement("div", { id: 'menu-wrapper' },
-        React.createElement(Menu, { mode: 'vertical', style: { width: '200px' } },
-            React.createElement(MenuItem, null, "Hello"),
-            React.createElement(MenuItem, { disabled: true }, "World"),
-            React.createElement(SubMenu, { title: 'test' },
-                React.createElement(MenuItem, null, "testa"),
-                React.createElement(MenuItem, null, "testbcsdf")),
-            React.createElement(MenuItem, { index: '5' }, "javascript"))));
 }
 var getTabs = function () {
     return (React.createElement(Tabs, null,
@@ -68,13 +61,21 @@ function getUpload() {
         // action='http://localhost:8000/upload'
         multiple: true, drag: true }, "upload file"));
 }
+function getMenu() {
+    return (React.createElement(Menu, { mode: 'horizontal' },
+        React.createElement(MenuItem, null, "111"),
+        React.createElement(MenuItem, { disabled: true }, "222"),
+        React.createElement(SubMenu, { title: '333' },
+            React.createElement(MenuItem, null, "aaa"),
+            React.createElement(MenuItem, null, "bbb"))));
+}
 function App() {
     return (React.createElement("div", { className: "App" },
         getAlert(),
-        getMenu(),
         getTabs(),
         getInput(),
         getSelect(),
-        getUpload()));
+        getUpload(),
+        getMenu()));
 }
 export default App;

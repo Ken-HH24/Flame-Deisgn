@@ -1,8 +1,5 @@
 import React from 'react';
-import Alert, { AlertType } from './components/Alert/alert';
-import Menu from './components/Menu/menu';
-import MenuItem from './components/Menu/menuItem';
-import SubMenu from './components/Menu/subMenu';
+import Alert from './components/Alert/alert';
 import Tabs from './components/Tabs/tabs';
 import TabItem from './components/Tabs/tabItem';
 import AutoComplete, { DataSourceType } from './components/Input/autoComplete';
@@ -10,6 +7,13 @@ import Select from './components/Select/select';
 // import Input from './components/Input/input';
 import SelectItem from './components/Select/selectItem';
 import Upload from './components/Upload/upload';
+import Menu from './components/Menu/menu';
+import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
 
 function getAlert() {
   return (
@@ -33,22 +37,6 @@ function getAlert() {
         content='bbbbb'
         type='success'
       />
-    </div>
-  )
-}
-
-function getMenu() {
-  return (
-    <div id='menu-wrapper'>
-      <Menu mode='vertical' style={{width: '200px'}}>
-        <MenuItem>Hello</MenuItem>
-        <MenuItem disabled>World</MenuItem>
-        <SubMenu title='test'>
-          <MenuItem>testa</MenuItem>
-          <MenuItem>testbcsdf</MenuItem>
-        </SubMenu>
-        <MenuItem index='5'>javascript</MenuItem>
-      </Menu>
     </div>
   )
 }
@@ -129,15 +117,28 @@ function getUpload() {
   )
 }
 
+function getMenu() {
+  return (
+    <Menu mode='horizontal'>
+      <MenuItem>111</MenuItem>
+      <MenuItem disabled>222</MenuItem>
+      <SubMenu title='333'>
+        <MenuItem>aaa</MenuItem>
+        <MenuItem>bbb</MenuItem>
+      </SubMenu>
+    </Menu>
+  )
+}
+
 function App() {
   return (
     <div className="App">
       {getAlert()}
-      {getMenu()}
       {getTabs()}
       {getInput()}
       {getSelect()}
-      {getUpload()}      
+      {getUpload()}
+      {getMenu()}
     </div>
   );
 }

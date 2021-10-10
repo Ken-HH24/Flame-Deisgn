@@ -9,66 +9,65 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { useContext, useState } from 'react';
-import { MenuContext } from './menu';
+import React, { useState, useContext } from 'react';
 import classNames from '../../utils/classNames';
-import Icon from '../Icon/icon';
+import Icon from '../Icon';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import Transition from '../Transition/transition';
+import { MenuContext } from './menu';
 var SubMenu = function (props) {
-    var title = props.title, index = props.index, className = props.className, children = props.children;
-    var _a = useState(false), menuOpen = _a[0], setMenuOpen = _a[1];
+    var title = props.title, index = props.index, onDisplay = props.onDisplay, children = props.children;
+    var _a = useState(false), isDisplay = _a[0], setIsDisplay = _a[1];
     var menuContext = useContext(MenuContext);
-    var renderSubMenu = function () {
-        var submenuClasses = classNames('submenu-item', {
-            'submenu-display': menuOpen,
-            'submenu-vertical': menuContext.mode === 'vertical',
-            'submenu-horizontal': menuContext.mode === 'horizontal'
-        });
-        var submenuChildren = React.Children.map(children, function (child, i) {
-            var childElement = child;
-            var displayName = childElement.type.displayName;
-            if (displayName === 'MenuItem') {
-                return React.cloneElement(childElement, {
-                    index: index + "-" + (childElement.props.index || i)
-                });
-            }
-            else {
-                console.error('Submenu Component should not have a child which is not a MenuItem Compoenent');
-            }
-        });
-        return (React.createElement(Transition, { in: menuOpen, timeout: 300, animation: 'zoom-in-right' },
-            React.createElement("ul", { className: submenuClasses }, submenuChildren)));
-    };
-    var classes = classNames('menu-item', 'submenu', className, {
-        'active': menuContext.activeIndex === index,
-        'isVertical': menuContext.mode === 'vertical',
-        'isOpen': menuOpen
-    });
-    var handleClick = function (e) {
-        e.preventDefault();
-        setMenuOpen(!menuOpen);
-    };
     var timer;
-    var handleHover = function (e, toggle) {
-        e.preventDefault();
+    var handleMouse = function (e, toggle) {
         clearTimeout(timer);
+        e.preventDefault();
         timer = setTimeout(function () {
-            setMenuOpen(toggle);
+            setIsDisplay(toggle);
+            if (onDisplay) {
+                onDisplay(toggle);
+            }
         }, 300);
     };
+    var handleClick = function (e) {
+        e.preventDefault();
+        if (onDisplay) {
+            onDisplay(!isDisplay);
+        }
+        setIsDisplay(!isDisplay);
+    };
+    var hoverEvent = menuContext.mode === 'horizontal' ? {
+        onMouseEnter: function (e) { handleMouse(e, true); },
+        onMouseLeave: function (e) { handleMouse(e, false); }
+    } : {};
     var clickEvent = menuContext.mode === 'vertical' ? {
         onClick: handleClick
     } : {};
-    var hoverEvent = menuContext.mode === 'horizontal' ? {
-        onMouseEnter: function (e) { handleHover(e, true); },
-        onMouseLeave: function (e) { handleHover(e, false); }
-    } : {};
-    return (React.createElement("li", __assign({ className: classes }, hoverEvent),
-        React.createElement("div", __assign({ className: 'submenu-title' }, clickEvent),
+    var renderSubMenuItem = function () {
+        var subMenuItems = React.Children.map(children, function (child, i) {
+            var childrenElement = child;
+            var displayName = childrenElement.type.displayName;
+            if (displayName === 'MenuItem') {
+                return React.cloneElement(childrenElement, {
+                    index: index + "-" + (childrenElement.props.index || i)
+                });
+            }
+        });
+        var classes = classNames('sub-menu-children', {
+            'sub-menu-vertical': menuContext.mode === 'vertical',
+            'sub-menu-horizontal': menuContext.mode === 'horizontal'
+        });
+        return React.createElement("div", { className: classes }, subMenuItems);
+    };
+    var classes = classNames('sub-menu-title', {
+        'submenu-active': menuContext.activeIndex.split('-')[0] === (index === null || index === void 0 ? void 0 : index.toString())
+    });
+    return (React.createElement("div", __assign({ className: 'sub-menu-wrapper' }, hoverEvent),
+        React.createElement("div", __assign({ className: classes }, clickEvent),
             title,
-            React.createElement(Icon, { theme: 'dark', icon: faAngleDown })),
-        renderSubMenu()));
+            React.createElement("div", { className: "sub-menu-icon " + (isDisplay ? 'display' : '') },
+                React.createElement(Icon, { icon: faAngleDown }))),
+        isDisplay && renderSubMenuItem()));
 };
 SubMenu.displayName = 'SubMenu';
 export default SubMenu;

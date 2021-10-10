@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
-import { MenuContext } from './menu';
 import classNames from '../../utils/classNames';
+import { MenuContext } from './menu';
 var MenuItem = function (props) {
-    var index = props.index, disabled = props.disabled, className = props.className, children = props.children, style = props.style;
+    var index = props.index, disabled = props.disabled, children = props.children;
     var menuContext = useContext(MenuContext);
-    var classes = classNames('menu-item', className, {
+    var handleItemClick = function () {
+        menuContext.handleItemClick(index);
+    };
+    var classes = classNames('menu-item', {
         'disabled': disabled,
         'active': menuContext.activeIndex === index
     });
-    var handleItemClick = function () {
-        if (menuContext.onSelect && !disabled && typeof index === 'string') {
-            menuContext.onSelect(index);
-        }
-    };
-    return (React.createElement("li", { style: style, className: classes, onClick: handleItemClick }, children));
+    return (React.createElement("div", { className: classes, onClick: handleItemClick }, children));
 };
 MenuItem.displayName = 'MenuItem';
 export default MenuItem;

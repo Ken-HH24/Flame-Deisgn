@@ -1,88 +1,74 @@
-import React, { createContext, useState } from 'react';
-import { MenuItemProps } from './menuItem';
+import React, { createContext, useState, CSSProperties } from 'react';
 import classNames from '../../utils/classNames';
+import { MenuItemProps } from './menuItem';
 
-type MenuMode = 'vertical' | 'horizontal';
-type selectCallback = (index: string) => void;
+export type MenuMode = 'vertical' | 'horizontal';
 
 export interface MenuProps {
     mode?: MenuMode;
-    className?: string;
+    style?: CSSProperties;
     defaultActiveIndex?: string;
-    onSelect?: selectCallback;
-    style?: React.CSSProperties;
+    onSelect?: (index: string) => void;
 }
 
-export interface IMenuContext{
+export interface IMenuContext {
     mode: MenuMode;
     activeIndex: string;
-    onSelect?: selectCallback;
+    handleItemClick: (index: string) => void;
 }
 
 export const MenuContext = createContext<IMenuContext>({
     mode: 'horizontal',
-    activeIndex: '0',
-})
+    activeIndex: '',
+    handleItemClick: (index: string) => { }
+});
 
 const Menu: React.FC<MenuProps> = (props) => {
     const {
         mode,
-        className,
         defaultActiveIndex,
         onSelect,
         children,
-        style
+        ...restProps
     } = props;
 
-    const classes = classNames(
-        'menu',
-        className,
-        {
-            'menu-vertical': mode === 'vertical',
-            'menu-horizental': mode === 'horizontal'
-        }
-    );
+    const [activeIndex, setAcitveIndex] = useState(defaultActiveIndex || '');
 
-    const [activeIndex, setAcitveIndex] = useState(defaultActiveIndex);
-    const handleMenuClick = (index: string) => {
+    const handleItemClick = (index: string) => {
         setAcitveIndex(index);
         if (onSelect) {
             onSelect(index);
         }
     }
 
-    const passedContext: IMenuContext = {
-        mode: mode!,
-        activeIndex: activeIndex || '0',
-        onSelect: handleMenuClick
-    };
-    
-    const renderChildren = () => {
+    const renderMenuItem = () => {
         return React.Children.map(children, (child, index) => {
-            const childElement = child as React.FunctionComponentElement<MenuItemProps>;
-            const { displayName } = childElement.type;
+            const childrenElement = child as React.FunctionComponentElement<MenuItemProps>;
+            const { displayName } = childrenElement.type;
             if (displayName === 'MenuItem' || displayName === 'SubMenu') {
-                return React.cloneElement(childElement, {
-                    index: childElement.props.index || index.toString()
-                });
-            } else {
-                console.error('Menu Component should not have a child which is not a MenuItem Component');
+                return React.cloneElement(childrenElement, {
+                    index: childrenElement.props.index || index.toString()
+                })
             }
-        });
+        })
     }
 
+    const classes = classNames('menu-wrapper', {
+        'menu-vertical': mode === 'vertical',
+        'menu-horizontal': mode === 'horizontal'
+    })
+
     return (
-        <ul className={classes} style={style}>
-            <MenuContext.Provider value={passedContext}>
-                {renderChildren()}
+        <div className={classes} {...restProps}>
+            <MenuContext.Provider value={{mode: mode || 'horizontal', activeIndex, handleItemClick}}>
+                {renderMenuItem()}
             </MenuContext.Provider>
-        </ul>
+        </div>
     )
 }
 
 Menu.defaultProps = {
-    mode: 'horizontal',
-    defaultActiveIndex: '0'
+    mode: 'horizontal'
 }
 
 export default Menu;
