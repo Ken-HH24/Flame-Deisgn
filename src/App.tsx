@@ -10,6 +10,7 @@ import Upload from './components/Upload/upload';
 import Menu from './components/Menu/menu';
 import MenuItem from './components/Menu/menuItem';
 import SubMenu from './components/Menu/subMenu';
+import DialogDemo from './components/Dialog/demo';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -66,7 +67,7 @@ interface ITest {
   id: number;
   value: string;
 }
- 
+
 function renderOption(item: DataSourceType) {
   const obj = item as DataSourceType<ITest>;
   return (
@@ -93,15 +94,15 @@ const getInput = () => {
 function getSelect() {
   return (
     <Select
-        style={{
-          marginTop: '100px',
-          width: '500px',
-          margin: '0 auto'
-        }}
-      >
-        <SelectItem value='111'></SelectItem>
-        <SelectItem value='222' disabled></SelectItem>
-        <SelectItem value='333'></SelectItem>
+      style={{
+        marginTop: '100px',
+        width: '500px',
+        margin: '0 auto'
+      }}
+    >
+      <SelectItem value='111'></SelectItem>
+      <SelectItem value='222' disabled></SelectItem>
+      <SelectItem value='333'></SelectItem>
     </Select>
   )
 }
@@ -119,7 +120,7 @@ function getUpload() {
 
 function getMenu() {
   return (
-    <Menu mode='horizontal'>
+    <Menu mode='vertical'>
       <MenuItem>111</MenuItem>
       <MenuItem disabled>222</MenuItem>
       <SubMenu title='333'>
@@ -133,12 +134,13 @@ function getMenu() {
 function App() {
   return (
     <div className="App">
-      {getAlert()}
+      {/* {getAlert()}
       {getTabs()}
       {getInput()}
       {getSelect()}
       {getUpload()}
-      {getMenu()}
+      {getMenu()} */}
+      <DialogDemo />
     </div>
   );
 }
